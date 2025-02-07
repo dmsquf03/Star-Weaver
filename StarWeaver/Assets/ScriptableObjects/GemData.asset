@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9cacd1a7503d6440b40658f1ab82087, type: 3}
+  m_Name: GemData
+  m_EditorClassIdentifier: 
+  gems:
+  - index: 0
+    sprite: {fileID: 6986478485483815025, guid: a4829534e749a1c4ba95444dba7cec0a, type: 3}
+    name: "\uBD84\uD64D\uC82C"
+  - index: 1
+    sprite: {fileID: 7094741930890478165, guid: a4829534e749a1c4ba95444dba7cec0a, type: 3}
+    name: "\uB178\uB791\uC82C"
+  - index: 2
+    sprite: {fileID: -9086342555160044626, guid: a4829534e749a1c4ba95444dba7cec0a, type: 3}
+    name: "\uCCAD\uB85D\uC82C"

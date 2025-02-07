@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95e66c6366d904e98bc83428217d4fd7, type: 3}
+  m_Name: ButtonSell
+  m_EditorClassIdentifier: 
+  _data:
+    _json: '{"graph":{"variables":{"Kind":"Flow","collection":{"$content":[],"$version":"A"},"$version":"A"},"controlInputDefinitions":[],"controlOutputDefinitions":[],"valueInputDefinitions":[],"valueOutputDefinitions":[],"title":null,"summary":null,"pan":{"x":-64.97109,"y":-123.5546},"zoom":0.8,"elements":[{"coroutine":false,"defaultValues":{"name":{"$content":"Enter","$type":"System.String"}},"position":{"x":-192.0,"y":-252.0},"guid":"136fdd45-cfd1-4a6e-b59c-c86fdf465c7e","$version":"A","$type":"Unity.VisualScripting.BoltUnityEvent","$id":"9"},{"coroutine":false,"defaultValues":{"name":{"$content":"Exit","$type":"System.String"}},"position":{"x":-192.0,"y":-24.0},"guid":"fd56daa6-57fe-4756-9e5b-a135ce77239c","$version":"A","$type":"Unity.VisualScripting.BoltUnityEvent","$id":"11"},{"kind":"Scene","defaultValues":{"name":{"$content":"IsSell","$type":"System.String"}},"position":{"x":72.0,"y":-252.0},"guid":"ad938d61-872c-4630-9f5f-ecb5e97c50be","$version":"A","$type":"Unity.VisualScripting.SetVariable","$id":"13"},{"type":"System.Boolean","value":{"$content":true,"$type":"System.Boolean"},"defaultValues":{},"position":{"x":-168.0,"y":-156.0},"guid":"dd6320b4-f11d-4753-9f93-e07545eceef6","$version":"A","$type":"Unity.VisualScripting.Literal","$id":"15"},{"type":"System.Boolean","value":{"$content":false,"$type":"System.Boolean"},"defaultValues":{},"position":{"x":-168.0,"y":72.0},"guid":"d2a1599c-3f76-4967-824b-3e3246881008","$version":"A","$type":"Unity.VisualScripting.Literal","$id":"17"},{"kind":"Scene","defaultValues":{"name":{"$content":"IsSell","$type":"System.String"}},"position":{"x":72.0,"y":-24.0},"guid":"7761098f-2ae3-48cc-afea-495f113a0569","$version":"A","$type":"Unity.VisualScripting.SetVariable","$id":"19"},{"sourceUnit":{"$ref":"9"},"sourceKey":"trigger","destinationUnit":{"$ref":"13"},"destinationKey":"assign","guid":"4fda0434-8252-4e45-aaee-44a366a8ec89","$type":"Unity.VisualScripting.ControlConnection"},{"sourceUnit":{"$ref":"11"},"sourceKey":"trigger","destinationUnit":{"$ref":"19"},"destinationKey":"assign","guid":"c65056f0-4ab2-47d1-b7f2-8d9acea3bdc0","$type":"Unity.VisualScripting.ControlConnection"},{"sourceUnit":{"$ref":"15"},"sourceKey":"output","destinationUnit":{"$ref":"13"},"destinationKey":"input","guid":"909d8fcd-f74e-405b-a274-daaefba38536","$type":"Unity.VisualScripting.ValueConnection"},{"sourceUnit":{"$ref":"17"},"sourceKey":"output","destinationUnit":{"$ref":"19"},"destinationKey":"input","guid":"3b8e5d2e-2a55-40c1-ae1d-d170c5df63ae","$type":"Unity.VisualScripting.ValueConnection"},{"position":{"xMin":-226.25,"yMin":-301.4167,"xMax":229.5836,"yMax":188.9167},"label":"Sell
+      State","comment":null,"color":{"r":0.0,"g":0.0,"b":0.0,"a":1.0},"guid":"cd6cd1a8-7990-4723-bc7e-4936b820b7f7","$version":"A","$type":"Unity.VisualScripting.GraphGroup"}],"$version":"A"}}'
+    _objectReferences: []
