@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   subMaterials:
   - index: 0
-    sprite: {fileID: -6114385412577893295, guid: 2abf98463953d994d92ef791421ab9d0, type: 3}
+    sprite: {fileID: 1282375286027799611, guid: a638000f16a09174b9606e1d892554aa, type: 3}
     name: "\uC9C4\uC8FC"
     description: "\uC740\uC740\uD55C"
   - index: 1
-    sprite: {fileID: 3081156232877722410, guid: 2abf98463953d994d92ef791421ab9d0, type: 3}
-    name: "\uBC54\uAC00\uB8E8"
+    sprite: {fileID: -1770044321993826554, guid: a638000f16a09174b9606e1d892554aa, type: 3}
+    name: "\uBCC4\uAC00\uB8E8"
     description: "\uBC18\uC9DD\uC774\uB294"
