@@ -2,21 +2,8 @@ using UnityEngine;
 using System.Collections.Generic;
 
 [System.Serializable]
-public class PlayerData : MonoBehaviour
+public class PlayerData
 {
-    public static PlayerData Instance { get; private set;}
-
-    private void Awake()
-    {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else{
-            Destroy(gameObject);
-        }
-    }
     public static readonly int MAX_MONEY = 999999; // 재화 최대
     public int money = 0;
     public int wool;                    // 보유 양털
@@ -44,4 +31,20 @@ public class PlayerData : MonoBehaviour
     
     // 보유 실 리스트
     public List<YarnData> yarns = new List<YarnData>();
+
+    // 생성자 - 배열 초기화
+    public PlayerData()
+    {
+        dyesP = new PlayerDyeData[5];
+        for(int i = 0; i < 5; i++)
+        {
+            dyesP[i] = new PlayerDyeData();
+        }
+
+        subMaterialsP = new PlayerSubMaterialData[2];
+        for(int i = 0; i < 2; i++)
+        {
+            subMaterialsP[i] = new PlayerSubMaterialData();
+        }
+    }
 }

@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
 
             #if UNITY_EDITOR
+            Debug.Log("Creating PlayerManager with useTestData: " + useTestData);
             PlayerManager = new PlayerManager(useTestData);
             #else
             PlayerManager = new PlayerManager(false);

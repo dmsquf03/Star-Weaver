@@ -7,6 +7,7 @@ using System.Collections.Generic;
 public class PlayerManager
 {
     private PlayerData playerData;
+    public PlayerData PlayerData => playerData;  // getter
 
     public int Wool => playerData.wool;
     public int CurrentClicks => playerData.currentClicks;
@@ -14,6 +15,16 @@ public class PlayerManager
 
     public PlayerManager(bool useTestData = false)
     {
+        Debug.Log("PlayerManager constructor called with useTestData: " + useTestData);
+
+        #if UNITY_EDITOR
+        if (useTestData)
+        {
+            PlayerPrefs.DeleteKey("PlayerData");  // 테스트 데이터 사용시 기존 데이터 삭제
+            PlayerPrefs.Save();
+        }
+        #endif
+
         // 초기 생성 시
         if (!LoadPlayerData())  // 저장된 데이터가 없다면
         {
@@ -22,6 +33,7 @@ public class PlayerManager
             #if UNITY_EDITOR    // 에디터 내에서 설정에 따라 초기 데이터 설정
             if (useTestData)
             {
+                Debug.Log("Initializing test data");
                 InitializeTestData();
             }
             #endif
@@ -43,10 +55,25 @@ public class PlayerManager
         playerData.gemsP[1] = true;
 
         // 염색약
+        for (int i = 0; i < playerData.dyesP.Length; i++)
+        {
+            playerData.dyesP[i] = new PlayerData.PlayerDyeData { unlocked = false, count = 0 };
+            Debug.Log($"Initial dye {i}: unlocked={playerData.dyesP[i].unlocked}, count={playerData.dyesP[i].count}");
+        }
         playerData.dyesP[0] = new PlayerData.PlayerDyeData { unlocked = true, count = 5 }; // 빨강
         playerData.dyesP[1] = new PlayerData.PlayerDyeData { unlocked = true, count = 3 }; // 노랑
+        playerData.dyesP[3] = new PlayerData.PlayerDyeData { unlocked = true, count = 3 };
+        playerData.dyesP[4] = new PlayerData.PlayerDyeData { unlocked = true, count = 8 };
+        for (int i = 0; i < playerData.dyesP.Length; i++)
+        {
+        Debug.Log($"After setup dye {i}: unlocked={playerData.dyesP[i].unlocked}, count={playerData.dyesP[i].count}");
+        }  
         
         // 부재료
+        for (int i = 0; i < playerData.subMaterialsP.Length; i++)
+        {
+            playerData.subMaterialsP[i] = new PlayerData.PlayerSubMaterialData { unlocked = false, count = 0 };
+        }
         playerData.subMaterialsP[0] = new PlayerData.PlayerSubMaterialData { unlocked = true, count = 10 }; // 진주
         playerData.subMaterialsP[1] = new PlayerData.PlayerSubMaterialData { unlocked = true, count = 7 };  // 반짝이
 

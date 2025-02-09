@@ -7,9 +7,12 @@ public class GemGrid : ItemGridBase<GemItem>
     protected override void LoadItems()
     {
         displayItems.Clear();
-        for (int i = 0; i < PlayerData.Instance.gemsP.Length; i++)
+
+        var playerGemData = GameManager.Instance.PlayerManager.PlayerData.gemsP;
+        for (int i = 0; i < playerGemData.Length; i++)
         {
-            if (PlayerData.Instance.gemsP[i])
+            var gemPlayerData = playerGemData[i];
+            if (gemPlayerData)
             {
                 displayItems.Add(GemItem.FromData(gemData.gems[i], true));
             }
