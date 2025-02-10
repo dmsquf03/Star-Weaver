@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class MaterialItemUI : ItemUIBase<ItemBase>
 {
-  public override void Setup(ItemBase item)
+  public override void Setup(ItemBase item, MaterialGrid grid, bool isSelected = false)
   {
-    base.Setup(item);
+    base.Setup(item, grid, isSelected);
 
     // 버튼 클릭 이벤트
     button.onClick.RemoveAllListeners();

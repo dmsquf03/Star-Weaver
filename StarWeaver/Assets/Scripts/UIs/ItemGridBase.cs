@@ -9,9 +9,14 @@ public abstract class ItemGridBase<T> : MonoBehaviour where T : ItemBase
     [SerializeField] protected Button nextButton;
     [SerializeField] protected Button prevButton;
     
+    // 보유 아이템 표시
     protected List<T> displayItems = new List<T>();
     protected int currentPage = 0;
     protected int itemsPerPage = 4;
+
+    // 선택 아이템 수 제한
+    protected List<T> selectedItems = new List<T>();
+    protected int maxSelection = 1;
     
     protected virtual void Start()
     {
@@ -63,14 +68,8 @@ public abstract class ItemGridBase<T> : MonoBehaviour where T : ItemBase
        for (int i = 0; i < itemsPerPage && startIdx + i < displayItems.Count; i++)
        {
            GameObject obj = Instantiate(itemPrefab, itemGrid);
-           if (obj == null)
-                Debug.LogError("Failed to instantiate prefab");
-
            var itemUI = obj.GetComponent<ItemUIBase<T>>();
-           if (itemUI == null)
-                Debug.LogError("ItemUIBase component not found on instantiated prefab");
-
-           itemUI.Setup(displayItems[startIdx + i]);
+           itemUI.Setup(displayItems[startIdx + i], this as MaterialGrid);
        }
     }
 
@@ -113,5 +112,31 @@ public abstract class ItemGridBase<T> : MonoBehaviour where T : ItemBase
             prevButton.interactable = currentPage > 0;
             Debug.Log($"Prev button interactable: {prevButton.interactable}");
         }
+    }
+
+    // 선택 아이템 수 제한 로직
+    public virtual bool OnItemSelected(T item, bool isSelected)
+    {
+        if(isSelected)
+        {
+            if(selectedItems.Count >= maxSelection)
+            {
+                Debug.Log($"Cannot select more than {maxSelection} items");
+                return false;
+            }
+            selectedItems.Add(item);
+        }
+        else
+        {
+            selectedItems.Remove(item);
+        }
+        return true;
+    }
+
+    // 씬 이동시 선택 리셋
+    public virtual void ResetSelection()
+    {
+        selectedItems.Clear();
+        UpdateDisplay();
     }
 }

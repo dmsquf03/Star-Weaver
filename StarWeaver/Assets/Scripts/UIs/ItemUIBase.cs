@@ -9,10 +9,14 @@ public abstract class ItemUIBase<T> : MonoBehaviour where T : ItemBase
    [SerializeField] protected Button button;
    [SerializeField] protected TextMeshProUGUI countText;
    protected T item;
+   protected bool isSelected;
+   protected MaterialGrid materialGrid;
    
-   public virtual void Setup(T item)
+   public virtual void Setup(T item, MaterialGrid grid, bool isSelected = false)
    {
         this.item = item;
+        this.materialGrid = grid;
+        this.isSelected = isSelected;
         icon.sprite = item.sprite;
         checkMark.gameObject.SetActive(false);
         countText.text = item.count.ToString("D2");
@@ -22,13 +26,19 @@ public abstract class ItemUIBase<T> : MonoBehaviour where T : ItemBase
             Debug.Log("Button clicked from base!");
             OnClick();
         });
+
+        UpdateSelection(isSelected);
    }
    
    protected virtual void OnClick()
    {
         Debug.Log("OnClick called in base class");
-        bool isSelected = !checkMark.gameObject.activeSelf;
-        UpdateSelection(isSelected);
+        bool newState = !isSelected;
+        if (materialGrid.OnItemSelected(item, newState))
+        {
+            isSelected = newState;
+            UpdateSelection(isSelected);
+        }
    }
    
    protected virtual void UpdateSelection(bool isSelected)

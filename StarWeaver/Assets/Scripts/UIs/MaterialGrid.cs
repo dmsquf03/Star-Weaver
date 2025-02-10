@@ -5,43 +5,14 @@ public class MaterialGrid : ItemGridBase<ItemBase>
 {
     [SerializeField] private DyeData dyeData;
     [SerializeField] private SubMaterialData subMaterialData;
+
+    private const int MAX_DYE_SELECTION = 2;
+    public const int MAX_SUBMATERIAL_SELECTION = 1;
+    private List<DyeItem> selectedDyes = new List<DyeItem>();
+    private SubMaterialItem selectedSubMaterial = null;
     
     protected override void LoadItems()
     {
-        Debug.Log("Starting LoadItems...");
-    
-    if (itemGrid == null)
-        Debug.LogError("Item Grid is null!");
-    if (itemPrefab == null)
-        Debug.LogError("Item Prefab is null!");
-    if (nextButton == null)
-        Debug.LogError("Next Button is null!");
-    if (prevButton == null)
-        Debug.LogError("Prev Button is null!");
-    if (dyeData == null)
-        Debug.LogError("DyeData is null!");
-    if (subMaterialData == null)
-        Debug.LogError("SubMaterialData is null!");
-        
-    displayItems.Clear();
-    
-    if (GameManager.Instance == null)
-    {
-        Debug.LogError("GameManager.Instance is null!");
-        return;
-    }
-    
-    if (GameManager.Instance.PlayerManager == null)
-    {
-        Debug.LogError("PlayerManager is null!");
-        return;
-    }
-    
-    if (GameManager.Instance.PlayerManager.PlayerData == null)
-    {
-        Debug.LogError("PlayerData is null!");
-        return;
-    }
 
         displayItems.Clear();
         
@@ -73,5 +44,77 @@ public class MaterialGrid : ItemGridBase<ItemBase>
         }
 
         Debug.Log($"Loaded items: Dyes={displayItems.Count}");  // 디버그 로그 추가
+    }
+
+    public override bool OnItemSelected(ItemBase item, bool isSelected)
+    {
+        if (item is DyeItem dyeItem)
+        {
+            // 염색약 선택 로직
+            if (isSelected)
+            {
+                if (selectedDyes.Count >= MAX_DYE_SELECTION)
+                {
+                    Debug.Log($"Cannot select more than {MAX_DYE_SELECTION} dyes");
+                    return false;
+                }
+                selectedDyes.Add(dyeItem);
+            }
+            else
+            {
+                selectedDyes.Remove(dyeItem);
+            }
+        }
+        else if (item is SubMaterialItem subItem)
+        {
+            // 부재료 선택 로직
+            if (isSelected)
+            {
+                if (selectedSubMaterial != null)
+                {
+                    Debug.Log("Cannot select more than 1 sub material");
+                    return false;
+                }
+                selectedSubMaterial = subItem;
+            }
+            else
+            {
+                selectedSubMaterial = null;
+            }
+        }
+
+        return true;
+    }
+
+    protected override void UpdateDisplay()
+    {
+        foreach (Transform child in itemGrid) 
+        {
+            Destroy(child.gameObject);
+        }
+        
+        int startIdx = currentPage * itemsPerPage;
+        for (int i = 0; i < itemsPerPage && startIdx + i < displayItems.Count; i++)
+        {
+            GameObject obj = Instantiate(itemPrefab, itemGrid);
+            var itemUI = obj.GetComponent<ItemUIBase<ItemBase>>();
+            var item = displayItems[startIdx + i];
+            
+            // 선택 상태 확인
+            bool isSelected = false;
+            if (item is DyeItem dyeItem)
+                isSelected = selectedDyes.Contains(dyeItem);
+            else if (item is SubMaterialItem subItem)
+                isSelected = selectedSubMaterial == subItem;
+                
+            itemUI.Setup(item, this, isSelected);  // 선택 상태 전달
+        }
+    }
+
+    public override void ResetSelection()
+    {
+        selectedDyes.Clear();
+        selectedSubMaterial = null;
+        UpdateDisplay();
     }
 }
