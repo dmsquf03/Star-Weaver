@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class MaterialItemUI : ItemUIBase<ItemBase>
 {
-  public override void Setup(ItemBase item, MaterialGrid grid, bool isSelected = false)
+  public override void Setup(ItemBase item, ItemGridBase<ItemBase> grid, bool isSelected = false)
   {
     base.Setup(item, grid, isSelected);
 

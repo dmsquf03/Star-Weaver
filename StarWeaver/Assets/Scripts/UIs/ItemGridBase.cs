@@ -69,7 +69,7 @@ public abstract class ItemGridBase<T> : MonoBehaviour where T : ItemBase
        {
            GameObject obj = Instantiate(itemPrefab, itemGrid);
            var itemUI = obj.GetComponent<ItemUIBase<T>>();
-           itemUI.Setup(displayItems[startIdx + i], this as MaterialGrid);
+           itemUI.Setup(displayItems[startIdx + i], this, false);
        }
     }
 
