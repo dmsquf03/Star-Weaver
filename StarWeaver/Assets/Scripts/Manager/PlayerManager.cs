@@ -47,6 +47,9 @@ public class PlayerManager
     #if UNITY_EDITOR
     private void InitializeTestData()
     {
+        // 양털
+        playerData.wool = 30;
+        
         // 재화
         playerData.money = 50000;
 
