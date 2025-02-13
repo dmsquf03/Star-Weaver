@@ -117,19 +117,6 @@ public abstract class ItemGridBase<T> : MonoBehaviour where T : ItemBase
     // 선택 아이템 수 제한 로직
     public virtual bool OnItemSelected(T item, bool isSelected)
     {
-        if(isSelected)
-        {
-            if(selectedItems.Count >= maxSelection)
-            {
-                Debug.Log($"Cannot select more than {maxSelection} items");
-                return false;
-            }
-            selectedItems.Add(item);
-        }
-        else
-        {
-            selectedItems.Remove(item);
-        }
         return true;
     }
 

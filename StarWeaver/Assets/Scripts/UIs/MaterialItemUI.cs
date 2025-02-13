@@ -4,15 +4,14 @@ public class MaterialItemUI : ItemUIBase<ItemBase>
 {
   public override void Setup(ItemBase item, ItemGridBase<ItemBase> grid, bool isSelected = false)
   {
+    Debug.Log("MaterialItemUI Setup called");
     base.Setup(item, grid, isSelected);
 
-    // 버튼 클릭 이벤트
     button.onClick.RemoveAllListeners();
     button.onClick.AddListener(() => {
-      Debug.Log("Button actually clicked!..");
-      OnClick();
+        Debug.Log("Button actually clicked!");
+        OnClick();
     });
-    Debug.Log("Button click listener added");
 
     /*// 디버그: 연결 확인
     Debug.Log($"Setup item: {item.name}");
