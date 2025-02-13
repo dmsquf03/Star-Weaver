@@ -136,10 +136,10 @@ TextureImporter:
       name: string2_0
       rect:
         serializedVersion: 2
-        x: 9
-        y: 137
-        width: 44
-        height: 46
+        x: 0
+        y: 128
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -158,10 +158,10 @@ TextureImporter:
       name: string2_1
       rect:
         serializedVersion: 2
-        x: 73
-        y: 137
-        width: 44
-        height: 46
+        x: 64
+        y: 128
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -180,10 +180,10 @@ TextureImporter:
       name: string2_2
       rect:
         serializedVersion: 2
-        x: 137
-        y: 135
-        width: 46
-        height: 48
+        x: 128
+        y: 128
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -202,10 +202,10 @@ TextureImporter:
       name: string2_3
       rect:
         serializedVersion: 2
-        x: 201
-        y: 131
-        width: 44
-        height: 52
+        x: 192
+        y: 128
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -224,10 +224,10 @@ TextureImporter:
       name: string2_4
       rect:
         serializedVersion: 2
-        x: 9
-        y: 73
-        width: 44
-        height: 46
+        x: 0
+        y: 64
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -246,10 +246,10 @@ TextureImporter:
       name: string2_5
       rect:
         serializedVersion: 2
-        x: 73
-        y: 73
-        width: 44
-        height: 46
+        x: 64
+        y: 64
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -268,10 +268,10 @@ TextureImporter:
       name: string2_6
       rect:
         serializedVersion: 2
-        x: 137
-        y: 71
-        width: 46
-        height: 48
+        x: 128
+        y: 64
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -290,10 +290,10 @@ TextureImporter:
       name: string2_7
       rect:
         serializedVersion: 2
-        x: 201
-        y: 67
-        width: 44
-        height: 52
+        x: 192
+        y: 64
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -312,10 +312,10 @@ TextureImporter:
       name: string2_8
       rect:
         serializedVersion: 2
-        x: 9
-        y: 9
-        width: 44
-        height: 46
+        x: 0
+        y: 0
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -334,10 +334,10 @@ TextureImporter:
       name: string2_9
       rect:
         serializedVersion: 2
-        x: 73
-        y: 9
-        width: 44
-        height: 46
+        x: 64
+        y: 0
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -356,10 +356,10 @@ TextureImporter:
       name: string2_10
       rect:
         serializedVersion: 2
-        x: 137
-        y: 7
-        width: 46
-        height: 48
+        x: 128
+        y: 0
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -378,10 +378,10 @@ TextureImporter:
       name: string2_11
       rect:
         serializedVersion: 2
-        x: 201
-        y: 3
-        width: 44
-        height: 52
+        x: 192
+        y: 0
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -400,7 +400,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: f125e30feefa9ae40aaa348d15ce79fc
     internalID: 0
     vertices: []
     indices: 
