@@ -17,19 +17,29 @@ MonoBehaviour:
     sprite: {fileID: -4552845619255519712, guid: d01bd3a0cb855a241a13756bd85d66e8, type: 3}
     name: "\uBE68\uAC04\uC0C9 \uC5FC\uC0C9\uC57D"
     color: {r: 1, g: 0, b: 0, a: 0}
+    saturationMultiplier: 0.975
+    valueMultiplier: 1
   - index: 1
     sprite: {fileID: -5082094348420805683, guid: d01bd3a0cb855a241a13756bd85d66e8, type: 3}
     name: "\uB178\uB780\uC0C9 \uC5FC\uC0C9\uC57D"
-    color: {r: 1, g: 1, b: 0, a: 0}
+    color: {r: 1, g: 0.87805045, b: 0, a: 0}
+    saturationMultiplier: 1.2
+    valueMultiplier: 1.8
   - index: 2
     sprite: {fileID: -9097751000112991183, guid: d01bd3a0cb855a241a13756bd85d66e8, type: 3}
     name: "\uD30C\uB780\uC0C9 \uC5FC\uC0C9\uC57D"
     color: {r: 0, g: 0, b: 1, a: 0}
+    saturationMultiplier: 0.97
+    valueMultiplier: 0.95
   - index: 3
     sprite: {fileID: -7559406945215693413, guid: d01bd3a0cb855a241a13756bd85d66e8, type: 3}
     name: "\uD558\uC580\uC0C9 \uC5FC\uC0C9\uC57D"
     color: {r: 1, g: 1, b: 1, a: 0}
+    saturationMultiplier: 1
+    valueMultiplier: 2
   - index: 4
     sprite: {fileID: 8007517048649855771, guid: d01bd3a0cb855a241a13756bd85d66e8, type: 3}
     name: "\uAC80\uC740\uC0C9 \uC5FC\uC0C9\uC57D"
     color: {r: 0, g: 0, b: 0, a: 0}
+    saturationMultiplier: 0.5
+    valueMultiplier: 0.5

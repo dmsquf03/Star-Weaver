@@ -140,17 +140,17 @@ public class SpinningWheelManager : MonoBehaviour
     private void UpdateYarnPreview()
     {
         SubMaterialItem selectedSubMaterial = null;
-        DyeItem selectedDye = null;
+        List<DyeItem> selectedDyes = new List<DyeItem>();
 
         foreach (var material in selectedMaterials)
         {
             if (material is SubMaterialItem sub)
                 selectedSubMaterial = sub;
             else if (material is DyeItem dye)
-                selectedDye = dye;
+                selectedDyes.Add(dye);
         }
 
-        yarnPreview.UpdatePreview(selectedGem, selectedSubMaterial, selectedDye);
+        yarnPreview.UpdatePreview(selectedGem, selectedSubMaterial, selectedDyes);
     }
 
     private void UpdateSlotsPosition()

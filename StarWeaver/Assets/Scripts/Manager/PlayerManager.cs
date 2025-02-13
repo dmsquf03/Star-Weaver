@@ -65,6 +65,7 @@ public class PlayerManager
         }
         playerData.dyesP[0] = new PlayerData.PlayerDyeData { unlocked = true, count = 5 }; // 빨강
         playerData.dyesP[1] = new PlayerData.PlayerDyeData { unlocked = true, count = 3 }; // 노랑
+        playerData.dyesP[2] = new PlayerData.PlayerDyeData { unlocked = true, count = 3 };
         playerData.dyesP[3] = new PlayerData.PlayerDyeData { unlocked = true, count = 3 };
         playerData.dyesP[4] = new PlayerData.PlayerDyeData { unlocked = true, count = 8 };
         for (int i = 0; i < playerData.dyesP.Length; i++)
