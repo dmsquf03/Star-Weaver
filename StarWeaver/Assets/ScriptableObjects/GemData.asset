@@ -16,9 +16,12 @@ MonoBehaviour:
   - index: 0
     sprite: {fileID: 6986478485483815025, guid: a4829534e749a1c4ba95444dba7cec0a, type: 3}
     name: "\uBD84\uD64D\uC82C"
+    yarnType: "\uD479\uC2E0"
   - index: 1
     sprite: {fileID: 7094741930890478165, guid: a4829534e749a1c4ba95444dba7cec0a, type: 3}
     name: "\uB178\uB791\uC82C"
+    yarnType: "\uB3D9\uAE00"
   - index: 2
     sprite: {fileID: -9086342555160044626, guid: a4829534e749a1c4ba95444dba7cec0a, type: 3}
     name: "\uCCAD\uB85D\uC82C"
+    yarnType: "\uB9AC\uBCF8"
