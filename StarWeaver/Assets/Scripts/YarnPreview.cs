@@ -28,7 +28,9 @@ public class YarnPreview : MonoBehaviour
 
     private Material instancedMaterial;
     private YarnData currentYarnData;
-    private System.Collections.Generic.List<DyeItem> selectedDyes = new System.Collections.Generic.List<DyeItem>();
+    private List<DyeItem> selectedDyes = new List<DyeItem>();
+    private SubMaterialItem currentSubMaterial;
+    private GemItem currentGem;
 
     private void Awake()
     {
@@ -45,9 +47,11 @@ public class YarnPreview : MonoBehaviour
         expectedYarnImage.sprite = basicYarnSprites[0];
     }
 
-    public void UpdatePreview(GemItem selectedGem = null, SubMaterialItem selectedSubMaterial = null, System.Collections.Generic.List<DyeItem> dyes = null)
+    public void UpdatePreview(GemItem selectedGem = null, SubMaterialItem selectedSubMaterial = null, List<DyeItem> dyes = null)
     {
-        selectedDyes = dyes ?? new System.Collections.Generic.List<DyeItem>();
+        selectedDyes = dyes ?? new List<DyeItem>();
+        currentSubMaterial = selectedSubMaterial;
+        currentGem = selectedGem;
 
         // 1. 실 스프라이트 결정
         Sprite targetSprite = DetermineYarnSprite(selectedGem, selectedSubMaterial);
@@ -58,6 +62,79 @@ public class YarnPreview : MonoBehaviour
 
         // 3. 염색약 적용
         ApplyDyeColor();
+    }
+
+    public string GetYarnName()
+    {
+        string name = "";
+
+        // 1. 부재료 description
+        if (currentSubMaterial != null)
+        {
+            name += currentSubMaterial.description + " ";
+        }
+
+        // 2. 염색약 색상
+        if (selectedDyes.Count > 0)
+        {
+            if (selectedDyes.Count == 1)
+            {
+                name += GetColorName(selectedDyes[0]) + " ";
+            }
+            else if (selectedDyes.Count == 2)
+            {
+                name +=  GetMixedColorName(selectedDyes[0], selectedDyes[1]) + "색 ";
+            }
+        }
+
+        // 3. 젬에 따른 실 종류
+        if (currentGem != null)
+        {
+            name += currentGem.yarnType + " ";
+        }
+
+        // 기본 실
+        if (string.IsNullOrEmpty(name.Trim()))
+        {
+            return "양털 실";
+        }
+
+        // 4. "실" 추가
+        name += "실";
+
+        return name;
+    }
+
+    private string GetColorName(DyeItem dye)
+    {
+        return dye.name.Replace("색 염색약", "");
+    }
+
+    private string GetMixedColorName(DyeItem dye1, DyeItem dye2)
+    {
+        // 빨강 + 파랑 = 보라
+        if ((GetColorName(dye1) == "빨간" && GetColorName(dye2) == "파란") ||
+            (GetColorName(dye1) == "파란" && GetColorName(dye2) == "빨간"))
+        {
+            return "보라";
+        }
+        
+        // 빨강 + 노랑 = 주황
+        if ((GetColorName(dye1) == "빨간" && GetColorName(dye2) == "노란") ||
+            (GetColorName(dye1) == "노란" && GetColorName(dye2) == "빨간"))
+        {
+            return "주황";
+        }
+        
+        // 파랑 + 노랑 = 초록
+        if ((GetColorName(dye1) == "파란" && GetColorName(dye2) == "노란") ||
+            (GetColorName(dye1) == "노란" && GetColorName(dye2) == "파란"))
+        {
+            return "초록";
+        }
+
+        // 기타 조합의 경우 첫 번째 색상으로 표시
+        return GetColorName(dye1);
     }
 
     private void ApplyDyeColor()
@@ -120,5 +197,17 @@ public class YarnPreview : MonoBehaviour
         currentYarnData.mainType = gem != null ? gem.name : "기본";
         currentYarnData.subType = subMaterial != null ? subMaterial.index : -1;
         currentYarnData.color = selectedDyes.Count > 0 ? selectedDyes[0].color : Color.white;
+    }
+
+    // 현재 스프라이트 반환
+    public Sprite GetCurrentYarnSprite()
+    {
+        return expectedYarnImage.sprite;
+    }
+
+    // 현재 Material 반환
+    public Material GetCurrentMaterial()
+    {
+        return instancedMaterial;
     }
 }

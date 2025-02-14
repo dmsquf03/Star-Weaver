@@ -33,6 +33,13 @@ public class SpinningWheelManager : MonoBehaviour
     private GemItem selectedGem = null;  // 선택된 젬 별도 관리
     private int currentYarnQuantity = 0;
 
+    [Header("Item Description PopUp")]
+    [SerializeField] private GameObject itemDescriptionPopUp;
+    [SerializeField] private Image itemIconImage;
+    [SerializeField] private TextMeshProUGUI itemNameText;
+    [SerializeField] private Button expectedYarnButton;
+    [SerializeField] private TextMeshProUGUI inventoryText;
+
     // Constants
     private const int MAX_SLOTS = 4;
     private const int MAX_YARN_QUANTITY = 5;
@@ -51,6 +58,10 @@ public class SpinningWheelManager : MonoBehaviour
             increaseButton.onClick.AddListener(IncreaseQuantity);
         if (decreaseButton != null)
             decreaseButton.onClick.AddListener(DecreaseQuantity);
+
+        // Expected Yarn 버튼 이벤트 연결
+        if (expectedYarnButton != null)
+            expectedYarnButton.onClick.AddListener(ShowYarnDescription);
             
         UpdateUI();
     }
@@ -324,5 +335,35 @@ public class SpinningWheelManager : MonoBehaviour
         }
 
         return true;
+    }
+
+    // 실 설명창
+    private void ShowYarnDescription()
+    {
+        if (itemDescriptionPopUp != null && itemIconImage != null && itemNameText != null)
+        {
+            // PopUp 활성화
+            itemDescriptionPopUp.SetActive(true);
+
+            // 아이콘 이미지, Material 설정
+            itemIconImage.sprite = yarnPreview.GetCurrentYarnSprite();
+            itemIconImage.material = yarnPreview.GetCurrentMaterial();
+            
+            // 이름 텍스트 설정
+            string yarnName = yarnPreview.GetYarnName();
+            itemNameText.text = yarnName;
+
+            // 실 보유 수량 설정
+            int count = GetInventoryCount(yarnName);
+            inventoryText.text = count.ToString("D2");
+        }
+    }
+
+    // 실 설명창 - 보유 수량 가져오기
+    private int GetInventoryCount(string yarnName)
+    {
+        var yarns = GameManager.Instance.PlayerManager.PlayerData.yarns;
+        var matchingYarn = yarns.Find(yarn => yarn.name == yarnName);
+        return matchingYarn?.count ?? 0;
     }
 }
