@@ -31,7 +31,7 @@ public class SpinningWheelManager : MonoBehaviour
     private WoolItem woolItem;
     private List<ItemBase> selectedMaterials = new List<ItemBase>();
     private GemItem selectedGem = null;  // 선택된 젬 별도 관리
-    private int currentYarnQuantity = 1;
+    private int currentYarnQuantity = 0;
 
     // Constants
     private const int MAX_SLOTS = 4;
@@ -198,7 +198,7 @@ public class SpinningWheelManager : MonoBehaviour
 
     public void DecreaseQuantity()
     {
-        if (currentYarnQuantity > 1)
+        if (currentYarnQuantity > 0)
         {
             currentYarnQuantity--;
             UpdateUI();
@@ -283,7 +283,7 @@ public class SpinningWheelManager : MonoBehaviour
     private void UpdateQuantityButtons()
     {
         // 감소 버튼은 현재 수량이 1일 때 비활성화
-        decreaseButton.interactable = currentYarnQuantity > 1;
+        decreaseButton.interactable = currentYarnQuantity > 0;
 
         // 증가 버튼은 최대 수량이거나 재료가 부족할 때 비활성화
         bool canIncrease = currentYarnQuantity < MAX_YARN_QUANTITY && HasEnoughMaterialsForNextQuantity();
