@@ -11,6 +11,12 @@ public class MaterialGrid : ItemGridBase<ItemBase>
     private const int MAX_DYE_SELECTION = 2;
     private const int MAX_SUBMATERIAL_SELECTION = 1;
     
+    // 외부에서 Material Grid 업데이트하기 위한 메서드
+    public void RefreshItems()
+    {
+        LoadItems();
+        UpdateDisplay();
+    }
     protected override void LoadItems()
     {
         displayItems.Clear();

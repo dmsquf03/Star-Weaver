@@ -79,7 +79,7 @@ public class YarnPreview : MonoBehaviour
         {
             if (selectedDyes.Count == 1)
             {
-                name += GetColorName(selectedDyes[0]) + " ";
+                name += GetColorName(selectedDyes[0]) + "색 ";
             }
             else if (selectedDyes.Count == 2)
             {
@@ -110,27 +110,71 @@ public class YarnPreview : MonoBehaviour
         return dye.name.Replace("색 염색약", "");
     }
 
+    // 염색약 조합에 따른 이름
     private string GetMixedColorName(DyeItem dye1, DyeItem dye2)
     {
-        // 빨강 + 파랑 = 보라
-        if ((GetColorName(dye1) == "빨간" && GetColorName(dye2) == "파란") ||
-            (GetColorName(dye1) == "파란" && GetColorName(dye2) == "빨간"))
-        {
-            return "보라";
-        }
-        
         // 빨강 + 노랑 = 주황
         if ((GetColorName(dye1) == "빨간" && GetColorName(dye2) == "노란") ||
             (GetColorName(dye1) == "노란" && GetColorName(dye2) == "빨간"))
         {
             return "주황";
         }
+        // 빨강 + 파랑 = 보라
+        if ((GetColorName(dye1) == "빨간" && GetColorName(dye2) == "파란") ||
+            (GetColorName(dye1) == "파란" && GetColorName(dye2) == "빨간"))
+        {
+            return "보라";
+        }
+        // 빨강 + 하양 = 분홍
+        if ((GetColorName(dye1) == "빨간" && GetColorName(dye2) == "하얀") ||
+            (GetColorName(dye1) == "하얀" && GetColorName(dye2) == "빨간"))
+        {
+            return "분홍";
+        }
+        // 빨강 + 검정 = 와인색
+        if ((GetColorName(dye1) == "빨간" && GetColorName(dye2) == "검은") ||
+            (GetColorName(dye1) == "검은" && GetColorName(dye2) == "빨간"))
+        {
+            return "와인";
+        }
         
-        // 파랑 + 노랑 = 초록
-        if ((GetColorName(dye1) == "파란" && GetColorName(dye2) == "노란") ||
-            (GetColorName(dye1) == "노란" && GetColorName(dye2) == "파란"))
+        // 노랑 + 파랑 = 초록
+        if ((GetColorName(dye1) == "노란" && GetColorName(dye2) == "파란") ||
+            (GetColorName(dye1) == "파란" && GetColorName(dye2) == "노란"))
         {
             return "초록";
+        }
+        // 노랑 + 하양 = 크림
+        if ((GetColorName(dye1) == "노란" && GetColorName(dye2) == "하얀") ||
+            (GetColorName(dye1) == "하얀" && GetColorName(dye2) == "노란"))
+        {
+            return "크림";
+        }
+        // 노랑 + 검정 = 올리브
+        if ((GetColorName(dye1) == "노란" && GetColorName(dye2) == "검은") ||
+            (GetColorName(dye1) == "검은" && GetColorName(dye2) == "노란"))
+        {
+            return "올리브";
+        }
+
+        // 파랑 + 하양 = 하늘
+        if ((GetColorName(dye1) == "파란" && GetColorName(dye2) == "하얀") ||
+            (GetColorName(dye1) == "하얀" && GetColorName(dye2) == "파란"))
+        {
+            return "하늘";
+        }
+        // 파랑 + 검정 = 남색
+        if ((GetColorName(dye1) == "파란" && GetColorName(dye2) == "검은") ||
+            (GetColorName(dye1) == "검은" && GetColorName(dye2) == "파란"))
+        {
+            return "남";
+        }
+
+        // 하양 + 검정 = 회색
+        if ((GetColorName(dye1) == "하얀" && GetColorName(dye2) == "검은") ||
+            (GetColorName(dye1) == "검은" && GetColorName(dye2) == "하얀"))
+        {
+            return "회";
         }
 
         // 기타 조합의 경우 첫 번째 색상으로 표시

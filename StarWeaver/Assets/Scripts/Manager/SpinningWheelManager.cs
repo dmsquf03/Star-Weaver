@@ -9,13 +9,31 @@ public class SpinningWheelManager : MonoBehaviour
     [Header("Slots")]
     [SerializeField] private RequiredMaterialSlot[] materialSlots = new RequiredMaterialSlot[4];
     
+    [Header("Input Controls")]
+    [SerializeField] private Button decreaseButton;
+    [SerializeField] private Button increaseButton;
+    [SerializeField] private Button determineButton;
+
+    [Header("Material Selection")]
+    [SerializeField] private GameObject requiredMaterialSlots;
+    [SerializeField] private GameObject itemIn;
+
     [Header("UI Elements")]
     [SerializeField] private TextMeshProUGUI expectedTimeText;
     [SerializeField] private TextMeshProUGUI quantityText;
     [SerializeField] private RectTransform itemInUI;
     [SerializeField] private RectTransform itemInBorder;
-    [SerializeField] private Button decreaseButton;
-    [SerializeField] private Button increaseButton;
+    [SerializeField] private GameObject dontTouchPopUp;
+    [SerializeField] private GameObject spinningWheelProcessUI;
+    [SerializeField] private GameObject confirmationPopUp;
+
+    [Header("Confirmation PopUp")]
+    [SerializeField] private Button confirmButton;    // 확인 버튼
+    [SerializeField] private Button cancelButton;     // 취소 버튼
+
+    [Header("Grid References")]
+    [SerializeField] private GemGrid gemGrid;
+    [SerializeField] private MaterialGrid materialGrid;
 
     [Header("Preview")]
     [SerializeField] private YarnPreview yarnPreview;
@@ -40,6 +58,12 @@ public class SpinningWheelManager : MonoBehaviour
     [SerializeField] private Button expectedYarnButton;
     [SerializeField] private TextMeshProUGUI inventoryText;
 
+    [Header("Process UI References")]
+    [SerializeField] private SpinningWheelProcess processManager;
+
+    [Header("Wheel Animation Controller")]
+    [SerializeField] private WheelAnimatonController wheelManager;
+
     // Constants
     private const int MAX_SLOTS = 4;
     private const int MAX_YARN_QUANTITY = 5;
@@ -62,6 +86,18 @@ public class SpinningWheelManager : MonoBehaviour
         // Expected Yarn 버튼 이벤트 연결
         if (expectedYarnButton != null)
             expectedYarnButton.onClick.AddListener(ShowYarnDescription);
+
+        // 결정 버튼 이벤트 연결, 초기 설정
+        if (determineButton != null)
+        {
+            determineButton.onClick.AddListener(OnDetermineButtonClick);
+            determineButton.interactable = false;
+        }
+
+        // UI 초기 상태 설정
+        if (dontTouchPopUp != null) dontTouchPopUp.SetActive(false);
+        if (spinningWheelProcessUI != null) spinningWheelProcessUI.SetActive(false);
+        if (confirmationPopUp != null) confirmationPopUp.SetActive(false);
             
         UpdateUI();
     }
@@ -115,6 +151,12 @@ public class SpinningWheelManager : MonoBehaviour
         UpdateUISize();
         UpdateQuantityButtons();
         UpdateYarnPreview();
+
+        // Determine 버튼 활성화 조건
+        if (determineButton != null)
+        {
+            determineButton.interactable = currentYarnQuantity > 0;
+        }
     }
 
     private void UpdateRequiredCounts()
@@ -365,5 +407,113 @@ public class SpinningWheelManager : MonoBehaviour
         var yarns = GameManager.Instance.PlayerManager.PlayerData.yarns;
         var matchingYarn = yarns.Find(yarn => yarn.name == yarnName);
         return matchingYarn?.count ?? 0;
+    }
+
+    // 결정 버튼 클릭
+    private void OnDetermineButtonClick()
+    {
+        if (confirmationPopUp != null)
+        {
+            ShowConfirmationPopUp(true);
+        }
+    }
+
+    // 확인 팝업 관리
+    private void ShowConfirmationPopUp(bool show)
+    {
+        confirmationPopUp.SetActive(show);
+        if (confirmButton != null) confirmButton.gameObject.SetActive(show);
+        if (cancelButton != null) cancelButton.gameObject.SetActive(show);
+    }
+
+    private void OnCancelDetermine()
+    {
+        ShowConfirmationPopUp(false);
+    }
+
+    // 결정 확인 버튼 클릭
+    public void OnConfirmDetermine()
+    {
+        // 1. 재료 소비
+        ConsumeMaterials();
+
+        // 1-1. Material Space UI 업데이트
+        if (materialGrid != null) materialGrid.RefreshItems();
+
+        // 2. UI 상태 변경
+        // 결정 버튼 비활성화
+        if (determineButton != null) determineButton.gameObject.SetActive(false);
+
+        // 재료 선택 영역 비활성화
+        if (requiredMaterialSlots != null) requiredMaterialSlots.SetActive(false);
+        if (itemIn != null) itemIn.SetActive(false);
+
+        // DontTouch 팝업 활성화
+        dontTouchPopUp.SetActive(true);
+
+        // 3. Process UI 활성화 및 설정
+        spinningWheelProcessUI.SetActive(true);
+        processManager.StartProcess(
+            yarnPreview.GetCurrentYarnSprite(),
+            yarnPreview.GetCurrentMaterial(),
+            CalculateTotalTime(currentYarnQuantity),
+            yarnPreview.GetYarnName(),
+            currentYarnQuantity
+        );
+
+        // 4. 확인 팝업 닫기
+        confirmationPopUp.SetActive(false);
+
+        // 5. Wheel 애니메이션 설정
+        wheelManager.StartProcessing();
+    }
+
+    // 선택 아이템 소비
+    private void ConsumeMaterials()
+    {
+        // 양털 소비
+        GameManager.Instance.PlayerManager.PlayerData.wool -= 5 * currentYarnQuantity;
+
+        // 선택된 재료들 소비
+        foreach (var material in selectedMaterials)
+        {
+            int required = GetRequiredCountForItem(material) * currentYarnQuantity;
+            
+            if (material is DyeItem dye)
+            {
+                GameManager.Instance.PlayerManager.PlayerData.dyesP[dye.index].count -= required;
+            }
+            else if (material is SubMaterialItem sub)
+            {
+                GameManager.Instance.PlayerManager.PlayerData.subMaterialsP[sub.index].count -= required;
+            }
+        }
+    }
+
+    // 아이팀 획득 시 다시 초기 상태로
+    public void ResetToInitialState()
+    {
+        // 1. 수량 초기화
+        currentYarnQuantity = 0;
+
+        // 2. 선택된 아이템들 초기화
+        selectedMaterials.Clear();
+        selectedGem = null;
+
+        // 3. Grid 선택 초기화
+        if (gemGrid != null) gemGrid.ResetSelection();
+        if (materialGrid != null) materialGrid.ResetSelection();
+
+        // 4. UI 요소들 활성화/비활성화
+        if (requiredMaterialSlots != null) requiredMaterialSlots.SetActive(true);
+        if (itemIn != null) itemIn.SetActive(true);
+        if (determineButton != null) determineButton.gameObject.SetActive(true);
+        if (dontTouchPopUp != null) dontTouchPopUp.SetActive(false);
+
+        // 5. 슬롯 초기화
+        InitializeSlots();
+        
+        // 6. UI 업데이트
+        UpdateUI();
     }
 }
