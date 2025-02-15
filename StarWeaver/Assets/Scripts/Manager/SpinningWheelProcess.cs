@@ -13,6 +13,9 @@ public class SpinningWheelProcess : MonoBehaviour
     [SerializeField] private Button obtainButton;       // 획득 버튼
     [SerializeField] private GameObject dontTouchPopUp; // 클릭 금지 팝업
 
+    [Header("Obtain Animation")]
+    [SerializeField] private ObtainAnim obtainAnim;
+
     [Header("References")]
     [SerializeField] private SpinningWheelManager spinningWheelManager;
     [SerializeField] private WheelAnimatonController wheelManager;
@@ -109,12 +112,24 @@ public class SpinningWheelProcess : MonoBehaviour
 
     public void OnObtainButtonClick()
     {
+        // 즉시 버튼 비활성화
+        if (obtainButton != null)
+        {
+            obtainButton.interactable = false;
+        }
+        
         // 실을 인벤토리에 추가
         var yarn = new YarnData
         {
             name = yarnName,
             count = quantity
         };
+
+        // 획득 애니메이션 재생
+        if (obtainAnim != null)
+        {
+            obtainAnim.PlayAnim(yarnImage.sprite, yarnImage.material, quantity);
+        }
 
         // 기존 실 존재 여부 확인
         var existingYarn = GameManager.Instance.PlayerManager.PlayerData.yarns
@@ -129,12 +144,12 @@ public class SpinningWheelProcess : MonoBehaviour
             GameManager.Instance.PlayerManager.PlayerData.yarns.Add(yarn);
         }
 
-        // 버튼 상태 변경
-        if (obtainButton != null) 
-        {
-          obtainButton.gameObject.SetActive(false);
-        }
+        // 애니메이션 끝난 후, 상태 및 UI 초기화
+        Invoke("ResetUIState", obtainAnim.fadeTime);
+    }
 
+    private void ResetUIState()
+    {
         // 상태 초기화 (Process UI 비활성화)
         gameObject.SetActive(false);
 

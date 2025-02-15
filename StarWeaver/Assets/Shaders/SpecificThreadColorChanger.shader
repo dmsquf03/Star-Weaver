@@ -13,6 +13,7 @@ Shader "Custom/SpecificThreadColorChanger"
         _DefaultThreadColor ("Default Thread Color", Color) = (0.95, 0.93, 0.88, 1)
         _GlobalSatMult ("Global Saturation Multiplier", Range(0.5, 2)) = 1
         _GlobalValMult ("Global Value Multiplier", Range(0.5, 2)) = 1
+        _Alpha ("Alpha", Range(0, 1)) = 1
     }
 
     SubShader
@@ -49,6 +50,7 @@ Shader "Custom/SpecificThreadColorChanger"
             float4 _Color2;
             float _UseSecondColor;
             float4 _DefaultThreadColor;
+            float _Alpha;
 
             // RGB to HSV 변환
             float3 rgb2hsv(float3 c)
@@ -153,7 +155,7 @@ Shader "Custom/SpecificThreadColorChanger"
             
                     col.rgb = hsv2rgb(finalHSV);
                 }
-        
+                col.a *= _Alpha;
                 return col;
             }
             ENDCG
