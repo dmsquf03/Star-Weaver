@@ -205,6 +205,7 @@ GameObject:
   - component: {fileID: 43286740}
   - component: {fileID: 43286742}
   - component: {fileID: 43286741}
+  - component: {fileID: 43286743}
   m_Layer: 5
   m_Name: Wheel Btn
   m_TagString: Untagged
@@ -271,6 +272,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 43286739}
   m_CullTransparentMesh: 1
+--- !u!114 &43286743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 43286739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 817d7bbf03829804382e3a128ca2b184, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  workPlaceButton: {fileID: 387468295}
+  returnButton: {fileID: 0}
 --- !u!1 &61776305
 GameObject:
   m_ObjectHideFlags: 0
@@ -661,7 +676,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   useTestData: 1
-  PointList:
+  pointListData:
   - {x: -2, y: -11, z: -11}
   - {x: -4, y: -13, z: -13}
   - {x: 1, y: -12, z: -12}
@@ -890,12 +905,10 @@ MonoBehaviour:
   _data:
     _json: '{"declarations":{"Kind":"Scene","collection":{"$content":[{"name":"TopLeft","value":{"$content":0,"$type":"UnityEngine.Object"},"typeHandle":{"Identification":"UnityEngine.Transform,
       UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","$version":"A"},"$version":"A"},{"name":"BottomRight","value":{"$content":1,"$type":"UnityEngine.Object"},"typeHandle":{"Identification":"UnityEngine.Transform,
-      UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","$version":"A"},"$version":"A"},{"name":"Manager","value":{"$content":2,"$type":"UnityEngine.Object"},"typeHandle":{"Identification":"UnityEngine.GameObject,
       UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","$version":"A"},"$version":"A"}],"$version":"A"},"$version":"A"}}'
     _objectReferences:
     - {fileID: 384995160}
     - {fileID: 1050985548}
-    - {fileID: 186677692}
 --- !u!4 &237127072
 Transform:
   m_ObjectHideFlags: 0
@@ -1307,7 +1320,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 387468296}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 43286743}
+        m_TargetAssemblyTypeName: SceneChanger, Assembly-CSharp
+        m_MethodName: workPlaceSceneChange
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &387468296
 MonoBehaviour:
   m_ObjectHideFlags: 0
