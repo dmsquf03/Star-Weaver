@@ -1,6 +1,6 @@
 # Star-Weaver
 
-KING 14기 겨울 프로젝트
+KING 14기 겨울 프로젝트 '별자리 공방' 게임 제작
 
 ## Commit Message Convention
 
